@@ -44,6 +44,24 @@ public class ListController : Controller
     // TODO #2 - Complete the Jobs action method
     public IActionResult Jobs(string column, string value)
     {
+        List<Job> jobs = new List<Job>();
+
+        //if the user selects "View All"
+        //how do I make a conditional for a user pressing a button.
+        if (column == "all")
+        {
+            jobs = JobData.FindAll();
+            
+            ViewBag.title = "All Jobs";
+            ViewBag.jobs = jobs;
+
+        }
+        else
+        {
+            jobs = JobData.FindByColumnAndValue(column, value);
+            ViewBag.title = $"Jobs with {column}: {value}";
+            ViewBag.jobs = jobs;
+        }
         return View();
     }
 }
